@@ -9,9 +9,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Joke Generator',
+      title: 'Laugh Hub',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
         scaffoldBackgroundColor: Colors.white,
       ),
       home: JokeGenerator(),
@@ -104,8 +104,8 @@ class _JokeGeneratorState extends State<JokeGenerator> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Joke Generator'),
-        backgroundColor: Colors.blue,
+        title: Text('Laugh Hub'),
+        backgroundColor: Colors.green,
       ),
       drawer: Drawer(
         child: ListView(
@@ -113,7 +113,7 @@ class _JokeGeneratorState extends State<JokeGenerator> {
           children: [
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.green,
               ),
               child: Text(
                 'Menu',
