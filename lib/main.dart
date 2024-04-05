@@ -70,10 +70,20 @@ class _JokeGeneratorState extends State<JokeGenerator> {
   TextEditingController customJokeController = TextEditingController();
   String? jokeType;
 
-  void generateRandomJoke(List<String> jokeList) {
-    int index = Random().nextInt(jokeList.length);
+  void generateRandomJoke() {
+    List<String> jokeList;
+    if (jokeType == null) {
+      jokeList = jokes + darkHumorJokes + dadJokes + punJokes;
+    } else if (jokeType == 'dark') {
+      jokeList = darkHumorJokes;
+    } else if (jokeType == 'dad') {
+      jokeList = dadJokes;
+    } else {
+      jokeList = punJokes;
+    }
+
     setState(() {
-      currentJoke = jokeList[index];
+      currentJoke = jokeList[Random().nextInt(jokeList.length)];
     });
   }
 
@@ -116,7 +126,7 @@ class _JokeGeneratorState extends State<JokeGenerator> {
                 color: Colors.green,
               ),
               child: Text(
-                'Menu',
+                'Jokes',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -127,7 +137,10 @@ class _JokeGeneratorState extends State<JokeGenerator> {
               leading: Icon(Icons.warning),
               title: Text('Dark Humor'),
               onTap: () {
-                generateRandomJoke(darkHumorJokes);
+                setState(() {
+                  jokeType = 'dark';
+                });
+                generateRandomJoke();
                 Navigator.pop(context);
               },
             ),
@@ -135,7 +148,10 @@ class _JokeGeneratorState extends State<JokeGenerator> {
               leading: Icon(Icons.family_restroom),
               title: Text('Dad Jokes'),
               onTap: () {
-                generateRandomJoke(dadJokes);
+                setState(() {
+                  jokeType = 'dad';
+                });
+                generateRandomJoke();
                 Navigator.pop(context);
               },
             ),
@@ -143,7 +159,10 @@ class _JokeGeneratorState extends State<JokeGenerator> {
               leading: Icon(Icons.tag_faces),
               title: Text('Pun Jokes'),
               onTap: () {
-                generateRandomJoke(punJokes);
+                setState(() {
+                  jokeType = 'pun';
+                });
+                generateRandomJoke();
                 Navigator.pop(context);
               },
             ),
@@ -290,9 +309,7 @@ class _JokeGeneratorState extends State<JokeGenerator> {
                 ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  generateRandomJoke(jokes);
-                },
+                onPressed: generateRandomJoke,
                 child: Text('Generate Joke',
                     style: TextStyle(color: Colors.white)),
                 style: ElevatedButton.styleFrom(
